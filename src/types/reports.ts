@@ -1,0 +1,90 @@
+export type TReport = {
+  reports: TReportType[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+  status_counts: null;
+  priority_counts: null;
+  type_counts: null;
+};
+
+export type TReportDashboard = {
+  total_reports: number;
+  new_reports: number;
+  investigating_reports: number;
+  resolved_reports: number;
+  escalated_reports: number;
+  avg_resolution_time_hours: number;
+  reports_resolved_under_24h_percent: number;
+  reports_resolved_under_72h_percent: number;
+  report_type_breakdown: null;
+  priority_breakdown: null;
+  recent_reports: TReportType[];
+  moderator_workload: null;
+  daily_report_counts: [];
+  resolution_time_trend: [];
+  total_active_users: 0;
+  users_with_restrictions: 0;
+  suspended_users: 0;
+  banned_users: 0;
+  generated_at: string;
+};
+
+export type TReportMetric = TMetric[];
+
+type TMetric = {
+  id: number;
+  date: string;
+  total_reports: number;
+  new_reports: number;
+  resolved_reports: number;
+  escalated_reports: number;
+  dismissed_reports: number;
+  avg_resolution_time: number;
+  median_resolution_time: number;
+  resolution_time_under_24h: number;
+  resolution_time_24h_to_72h: number;
+  resolution_time_over_72h: number;
+  harassment_reports: number;
+  spam_reports: number;
+  inappropriate_content_reports: number;
+  hate_speech_reports: number;
+  urgent_reports: number;
+  high_priority_reports: number;
+  medium_priority_reports: number;
+  low_priority_reports: number;
+  active_moderators: number;
+  reports_per_moderator: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type TReportType = {
+  id: number;
+  reporter_id: string;
+  reported_user_id: string;
+  content_type: "user_profile";
+  content_id: string;
+  content_url: string;
+  report_type: "harassment";
+  title: string;
+  description: string;
+  evidence_urls: string[];
+  status: "new";
+  priority: "low";
+  assigned_to: string;
+  assigned_at: string;
+  resolution_notes: string;
+  resolved_at: string;
+  resolved_by: string;
+  escalated_to: string;
+  escalated_at: string;
+  escalation_reason: string;
+  created_at: string;
+  updated_at: string;
+  reporter_name: string;
+  reported_user_name: string;
+  assigned_moderator_name: string;
+  resolver_name: string;
+};

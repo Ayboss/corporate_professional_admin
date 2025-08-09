@@ -1,0 +1,39 @@
+"use client";
+// components/Sidebar.tsx
+import Link from "next/link";
+import { Settings, Home, Search, Book } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+const navItems = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/search", label: "Search", icon: Search },
+  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/reports", label: "Reports", icon: Book },
+];
+
+export default function CPsidebar() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="w-60 bg-white border-r border-gray-200 ">
+      <div className="p-6 font-bold text-xl text-primary">Admin</div>
+      <nav className="flex flex-col space-y-2 px-4">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const isActive = pathname === href;
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center p-2 rounded ${
+                isActive ? "bg-primary/20" : "hover:bg-primary/10"
+              } text-gray-700 `}
+            >
+              <Icon size={20} />
+              <span className="ml-3">{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    </aside>
+  );
+}
