@@ -11,11 +11,11 @@ export async function getAllReports({
 }) {
   try {
     const response = await httprequest.get(
-      `/reports?skip=${skip}&limit=${limit}`
+      `/reports/?skip=${skip}&limit=${limit}`
     );
-    return response.data as TReport[];
+    return response.data as TReport;
   } catch (err) {
-    return [];
+    errorMessage(err);
   }
 }
 
@@ -61,9 +61,12 @@ export async function updateReport(url: string, { arg }: { arg: any }) {
 
 export async function resolveReport(id: number, notes: string) {
   try {
-    const response = await httprequest.post(`/api/reports/${id}/resolve`, {
-      notes,
-    });
+    const response = await httprequest.post(
+      `/reports/${id}/resolve?resolution_notes=${notes}`,
+      {
+        resolution_notes: notes,
+      }
+    );
     return response.data as TReportType;
   } catch (err) {
     errorMessage(err);

@@ -1,17 +1,20 @@
 "use client";
 // components/Sidebar.tsx
 import Link from "next/link";
-import { Settings, Home, Search, Book } from "lucide-react";
+import { Settings, Home, Search, Book, BarChart3 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/search", label: "Search", icon: Search },
-  { href: "/settings", label: "Settings", icon: Settings },
   { href: "/reports", label: "Reports", icon: Book },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  // { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export default function CPsidebar() {
+  useAuth();
   const pathname = usePathname();
 
   return (

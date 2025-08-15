@@ -1,6 +1,10 @@
 import {
+  TactionMetric,
   TanalyticDashboard,
+  TanalyticPost,
   TcontentAnalytics,
+  TcustomReport,
+  TengagementMetric,
   TjobMetric,
   TuserMetric,
 } from "@/types/analytics";
@@ -57,7 +61,7 @@ export async function getEngagementMetric(
     const response = await httprequest.get(
       `/analytics/engagement-metrics?${arg.query}`
     );
-    return response.data as TuserMetric;
+    return response.data as TengagementMetric;
   } catch (err) {
     errorMessage(err);
   }
@@ -85,7 +89,7 @@ export async function getViralPosts(
     const response = await httprequest.get(
       `/analytics/viral-posts?${arg.query}`
     );
-    return response.data as TPost[];
+    return response.data as TanalyticPost;
   } catch (err) {
     errorMessage(err);
   }
@@ -99,7 +103,7 @@ export async function getAactivationMetric(
     const response = await httprequest.get(
       `/analytics/activation-metrics?${arg.query}`
     );
-    return response.data as TcontentAnalytics;
+    return response.data as TactionMetric;
   } catch (err) {
     errorMessage(err);
   }
@@ -129,7 +133,7 @@ export async function generateCustomReport(
       `/api/analytics/custom-report`,
       arg
     );
-    return response.data as TcontentAnalytics;
+    return response.data as TcustomReport;
   } catch (err) {
     errorMessage(err);
   }

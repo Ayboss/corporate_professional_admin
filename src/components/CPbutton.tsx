@@ -9,11 +9,11 @@ function CPbutton({
 }: { loading?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className={`rounded-full p-[15] text-center  w-full  text-white mb-4 text-sm flex items-center gap-1 justify-center ${
-        loading ? "bg-[#b5b7ff]" : "bg-primary"
-      }`}
-      disabled={loading}
       {...props}
+      className={`rounded-full p-[15] text-center   text-white mb-4 text-sm flex items-center gap-1 justify-center ${
+        loading ? "bg-[#b5b7ff]" : "bg-primary"
+      } ${props.className}`}
+      disabled={loading}
     >
       {loading && <CPspinnerLoader size={15} color="#ffffff" />}
       {props.children ? props.children : "Continue"}

@@ -74,7 +74,7 @@ export default function Login() {
               Forgot password?
             </button>
           </div>
-          <CPbutton type="submit" loading={isMutating} />
+          <CPbutton className="w-full" type="submit" loading={isMutating} />
           <p className="text-center text-sm text-[#64748B]">
             Don’t have an account?{" "}
             <Link href={"/onboarding"} className="text-slate">

@@ -19,6 +19,9 @@ export const loginAdmin = async (
   httprequest.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${response.data.access_token}`;
+  if (!response.data.user.is_admin) {
+    throw new Error("Account is not an admin");
+  }
   storeData("access_token", response.data.access_token);
   storeData("refresh_token", response.data.refresh_token);
   return response.data.user;
