@@ -115,7 +115,7 @@ export type TReportEdit = Pick<
   | "escalation_reason"
 >;
 
-export function ReportModal({
+function ReportModal({
   report,
   onClose,
 }: {

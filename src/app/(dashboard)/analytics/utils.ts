@@ -3,7 +3,7 @@ export function lastPct(trend?: { percentage_change: number }[]) {
   if (!trend || trend.length === 0) return undefined;
   return trend[trend.length - 1]?.percentage_change;
 }
-export function formatNumber(n?: number) {
+export function formatNumber(n?: number | string) {
   return typeof n === "number" ? n.toLocaleString() : "-";
 }
 
