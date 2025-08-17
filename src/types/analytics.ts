@@ -276,7 +276,7 @@ type percentType = {
   value: number;
   percentage_change: number;
 };
-type additionalProp = Record<string, string | number>;
+type additionalProp = Record<string, string>;
 
 export type TcustomReport = {
   report_id: string;

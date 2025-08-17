@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TFullUserDetails, TMetrics, TUser } from "@/types/users";
 import httprequest from "@/utils/httpRequest";
 import { errorMessage, successMessage } from "@/utils/toastalert";

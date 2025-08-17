@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TReport, TReportDashboard, TReportType } from "@/types/reports";
 import httprequest from "@/utils/httpRequest";
-import { errorMessage, successMessage } from "@/utils/toastalert";
+import { errorMessage } from "@/utils/toastalert";
 
 export async function getAllReports({
   skip,

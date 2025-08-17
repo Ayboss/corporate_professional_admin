@@ -1,7 +1,7 @@
 "use client";
 // components/Sidebar.tsx
 import Link from "next/link";
-import { Settings, Home, Search, Book, BarChart3 } from "lucide-react";
+import { Home, Search, Book, BarChart3 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 

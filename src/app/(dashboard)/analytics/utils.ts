@@ -24,7 +24,7 @@ export function toSeries(data: any[] | undefined) {
   }));
 }
 
-export function entriesFromRecord(rec?: Record<string, number>) {
+export function entriesFromRecord(rec?: Record<string, string>) {
   if (!rec) return [] as { name: string; value: number }[];
   return Object.entries(rec).map(([name, value]) => ({ name, value }));
 }

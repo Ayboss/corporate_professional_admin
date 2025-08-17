@@ -1,7 +1,6 @@
 import { TLoginSchema } from "@/types/admin";
 import httprequest from "@/utils/httpRequest";
 import { storeData } from "@/utils/storage";
-import { errorMessage } from "@/utils/toastalert";
 
 export const loginAdmin = async (
   url: string,

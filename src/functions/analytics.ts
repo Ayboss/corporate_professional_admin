@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   TactionMetric,
   TanalyticDashboard,
@@ -8,7 +9,6 @@ import {
   TjobMetric,
   TuserMetric,
 } from "@/types/analytics";
-import { TPost } from "@/types/posts";
 
 import httprequest from "@/utils/httpRequest";
 import { errorMessage } from "@/utils/toastalert";

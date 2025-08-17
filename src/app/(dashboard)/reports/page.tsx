@@ -13,13 +13,13 @@ import { TReportType } from "@/types/reports";
 import CPModal from "@/components/CPModal";
 import useSWRMutation from "swr/mutation";
 import { successMessage } from "@/utils/toastalert";
-import CPbutton, { CPbuttonTwo } from "@/components/CPbutton";
+import CPbutton from "@/components/CPbutton";
 
 export default function ReportsPage() {
   const LIMIT = 50;
   const [skip, setSkip] = useState(0);
   const [activeReport, setActiveReport] = useState<null | TReportType>(null);
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading } = useSWR(
     `/admin/reports?skip=${skip}&limit=${LIMIT}`,
     () => getAllReports({ skip, limit: LIMIT })
   );
@@ -152,13 +152,20 @@ export function ReportModal({
   };
 
   const onSave = async (payload: TReportEdit) => {
-    for (const key in payload) {
-      if (payload[key] == "") {
-        delete payload[key];
+    // work on a copy, and allow deletions
+    const clean: Partial<TReportEdit> = { ...payload };
+
+    for (const k in clean) {
+      const key = k as keyof TReportEdit;
+      const val = clean[key];
+
+      if (typeof val === "string" && val === "") {
+        delete clean[key];
       }
     }
+
     try {
-      await trigger(payload);
+      await trigger(clean); // accepts Partial<TReportEdit>?
       onClose();
     } catch (err) {
       console.log(err);
