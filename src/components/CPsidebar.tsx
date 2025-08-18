@@ -1,7 +1,7 @@
 "use client";
 // components/Sidebar.tsx
 import Link from "next/link";
-import { Home, Search, Book, BarChart3 } from "lucide-react";
+import { Home, Search, Book, BarChart3, ShieldCheck } from "lucide-react";
 import { usePathname } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/search", label: "Search", icon: Search },
   { href: "/reports", label: "Reports", icon: Book },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/moderators", label: "Moderators", icon: ShieldCheck },
   // { href: "/settings", label: "Settings", icon: Settings },
 ];
 

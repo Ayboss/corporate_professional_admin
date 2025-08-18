@@ -18,6 +18,7 @@ import CPspinnerLoader from "@/components/CPspinnerLoader";
 import CPprofileImg from "@/components/CPprofileImg";
 import CPbutton from "@/components/CPbutton";
 import { Skeleton } from "@radix-ui/themes";
+import { makeUserAModerator } from "@/functions/moderators";
 
 function UserDetails() {
   const params = useParams();
@@ -31,7 +32,14 @@ function UserDetails() {
   const { trigger: handleActivate, isMutating: isLoadingActive } =
     useSWRMutation(`/admin/users/${userId}/activate`, activateUser);
   const user = data?.user;
-
+  const { trigger: makeModerator } = useSWRMutation(
+    "/admin/moderators/",
+    makeUserAModerator
+  );
+  // const { trigger: removeModerator } = useSWRMutation(
+  //   "/admin/moderators/",
+  //   removeAModerator
+  // );
   const handleActivateDeactivate = () => {
     if (!user) return;
     if (user.is_active) {
@@ -40,7 +48,13 @@ function UserDetails() {
       handleActivate({ user_id: user?.id });
     }
   };
+  const handleMake = async () => {
+    const id = userId.trim();
+    if (!id) return;
 
+    await makeModerator({ user_id: id });
+  };
+  const handleExportUser = () => {};
   if (isLoading || !user) {
     return <Skeleton loading={isLoading} />;
   }
@@ -50,18 +64,29 @@ function UserDetails() {
         <div className="mb-10">
           <CPprofileCard user={user} />
         </div>
-        <CPbutton
-          onClick={handleActivateDeactivate}
-          loading={isLoadingDeactive || isLoadingActive}
-        >
-          {user.is_active ? "Deactive" : "Activate"}
-        </CPbutton>
-        <CPbutton
-          onClick={handleActivateDeactivate}
-          loading={isLoadingDeactive || isLoadingActive}
-        >
-          Export
-        </CPbutton>
+        <div>
+          <p className="mb-2">Actions</p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <CPbutton
+              onClick={handleActivateDeactivate}
+              loading={isLoadingDeactive || isLoadingActive}
+            >
+              {user.is_active ? "Deactive" : "Activate"}
+            </CPbutton>
+            <CPbutton
+              onClick={handleExportUser}
+              loading={isLoadingDeactive || isLoadingActive}
+            >
+              Export
+            </CPbutton>
+            <CPbutton
+              onClick={handleMake}
+              loading={isLoadingDeactive || isLoadingActive}
+            >
+              Make Moderator
+            </CPbutton>
+          </div>
+        </div>
         <div className="mb-12">
           <h5 className="text-[#050505] mb-2">About</h5>
           <p className="text-[#64748B] text-sm">{user?.bio}</p>
@@ -96,7 +121,7 @@ function UserDetails() {
             {/* <button>Edit</button> */}
           </div>
           <div className="flex flex-col gap-6">
-            {user.work_experience.map((exp) => (
+            {data.work_experiences.map((exp) => (
               <CPtableListWorkExp
                 key={exp.id}
                 left={`${dayjs(exp.start_date).format("DD MMM YYYY")} - ${dayjs(
@@ -114,7 +139,7 @@ function UserDetails() {
             <h5 className="text-[#050505] ">Education</h5>
           </div>
           <div className="flex flex-col gap-6">
-            {user.education.map((exp) => (
+            {data.education.map((exp) => (
               <CPtableListWorkExp
                 key={exp.id}
                 left={`${dayjs(exp.from_date).format("DD MMM YYYY")} - ${dayjs(
@@ -135,6 +160,19 @@ function UserDetails() {
               left="Status"
               right={user.recruiter_tag ? "Recruiter" : "Talent"}
             />
+          </div>
+        </div>
+        <div className="mb-12">
+          <h5 className="text-[#050505] mb-5">Recent Activities</h5>
+          <div className="flex flex-col gap-2">
+            {data.recent_activities.map((act, i) => (
+              <div key={i} className="flex gap-1.5 items-center">
+                <div className="mb-1 text-gray-400">
+                  {dayjs(act.date).format("DD MMM YYYY")} {act.type}
+                </div>
+                <div>{act.description}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -48,6 +48,8 @@ export type TUser = {
 
 export type TFullUserDetails = {
   user: TUser;
+  education: TEducation[];
+  work_experiences: TWorkExperience[];
   activity_summary: {
     account_age_days: number;
     is_suspended: boolean;
@@ -61,7 +63,7 @@ export type TFullUserDetails = {
     date: null | Date;
     description: string;
     type: string;
-  };
+  }[];
 };
 
 export type TSection = {
