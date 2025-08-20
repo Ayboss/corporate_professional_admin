@@ -32,10 +32,8 @@ function UserDetails() {
   const { trigger: handleActivate, isMutating: isLoadingActive } =
     useSWRMutation(`/admin/users/${userId}/activate`, activateUser);
   const user = data?.user;
-  const { trigger: makeModerator } = useSWRMutation(
-    "/admin/moderators/",
-    makeUserAModerator
-  );
+  const { trigger: makeModerator, isMutating: loadingModerator } =
+    useSWRMutation("/admin/moderators/", makeUserAModerator);
   // const { trigger: removeModerator } = useSWRMutation(
   //   "/admin/moderators/",
   //   removeAModerator
@@ -79,10 +77,7 @@ function UserDetails() {
             >
               Export
             </CPbutton>
-            <CPbutton
-              onClick={handleMake}
-              loading={isLoadingDeactive || isLoadingActive}
-            >
+            <CPbutton onClick={handleMake} loading={loadingModerator}>
               Make Moderator
             </CPbutton>
           </div>

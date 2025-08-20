@@ -29,7 +29,7 @@ export async function removeAModerator(
   { arg }: { arg: { user_id: string } }
 ) {
   try {
-    await httprequest.delete(`/admin/moderators/${arg.user_id}/make`);
+    await httprequest.delete(`/admin/moderators/${arg.user_id}`);
     successMessage("Moderator removed successfully");
   } catch (err) {
     errorMessage(err);

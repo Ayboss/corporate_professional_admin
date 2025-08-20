@@ -48,18 +48,14 @@ export default function ModeratorsPage() {
       setUserId("");
       await mutate();
     } finally {
-      removeModerator({ user_id: id });
+      setBusyId(null);
     }
   };
 
   const handleToggle = async (m: TModerator) => {
     setBusyId(m.id);
     try {
-      if (m.is_moderator) {
-        await removeAModerator("", { arg: { user_id: m.id } });
-      } else {
-        await makeUserAModerator("", { arg: { user_id: m.id } });
-      }
+      removeModerator({ user_id: m.id });
       await mutate();
     } finally {
       setBusyId(null);
@@ -141,21 +137,13 @@ export default function ModeratorsPage() {
                   <button
                     onClick={() => handleToggle(m)}
                     disabled={busyId === m.id}
-                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded border ${
-                      m.is_moderator
-                        ? "border-rose-300 text-rose-700 hover:bg-rose-50"
-                        : "border-emerald-300 text-emerald-700 hover:bg-emerald-50"
-                    } disabled:opacity-50`}
-                    title={
-                      m.is_moderator ? "Remove moderator" : "Make moderator"
+                    className={
+                      "inline-flex items-center gap-2 px-3 py-1.5 rounded border border-rose-300 text-rose-700 hover:bg-rose-50 disabled:opacity-50"
                     }
+                    title="Remove moderator"
                   >
-                    {m.is_moderator ? (
-                      <ShieldOff size={16} />
-                    ) : (
-                      <ShieldCheck size={16} />
-                    )}
-                    {m.is_moderator ? "Remove" : "Make"}
+                    <ShieldOff size={16} />
+                    Remove
                   </button>
                 </td>
               </tr>

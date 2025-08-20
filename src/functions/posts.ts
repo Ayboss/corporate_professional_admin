@@ -1,23 +1,44 @@
-import { TPost } from "@/types/posts";
+import { TComment, TPost, TPostAndAnalytics } from "@/types/posts";
 import httprequest from "@/utils/httpRequest";
 import { errorMessage, successMessage } from "@/utils/toastalert";
 
-export async function getAllPost() {
+export async function getAllPost(
+  url: string,
+  { arg }: { arg: { query: string } }
+) {
   try {
-    const response = await httprequest.get("/admin/posts");
-    return response.data as TPost[];
+    const response = await httprequest.get(`/admin/posts/?${arg.query}`);
+    return response.data as TPostAndAnalytics[];
   } catch (err) {
+    errorMessage(err);
     return [];
   }
 }
 
+export async function getUserPost(url: string) {
+  try {
+    const response = await httprequest.get(url);
+    return response.data as TPost;
+  } catch (err) {
+    errorMessage(err);
+    return null;
+  }
+}
+
+export const fetchPostComments = async (url: string) => {
+  return httprequest
+    .get(url)
+    .then((res) => res.data as TComment[])
+    .catch(() => []);
+};
+
 export async function updatePostVisibility(
   url: string,
-  { arg }: { arg: { visibility: "public" | "private" } }
+  { arg }: { arg: { post_id: string; visibility: "public" | "private" } }
 ) {
   try {
-    const response = await httprequest.post(
-      "/admin/posts/{post_id}/visibility",
+    const response = await httprequest.patch(
+      `/admin/posts/${arg.post_id}/visibility`,
       {
         visibility: arg.visibility,
       }

@@ -1,12 +1,20 @@
 "use client";
 // components/Sidebar.tsx
 import Link from "next/link";
-import { Home, Search, Book, BarChart3, ShieldCheck } from "lucide-react";
+import {
+  Home,
+  Search,
+  Book,
+  BarChart3,
+  ShieldCheck,
+  BookAIcon,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 
 const navItems = [
-  { href: "/", label: "Home", icon: Home },
+  { href: "/", label: "Users", icon: Home },
+  { href: "/posts", label: "Posts", icon: BookAIcon },
   { href: "/search", label: "Search", icon: Search },
   { href: "/reports", label: "Reports", icon: Book },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
